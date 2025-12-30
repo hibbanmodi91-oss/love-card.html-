@@ -15,7 +15,7 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  font-family:'Poppins',sans-serif;
+  font-family:Poppins,sans-serif;
 }
 
 /* LOCK SCREEN */
@@ -28,36 +28,46 @@ body{
   box-shadow:0 12px 35px rgba(0,0,0,.25);
   z-index:10;
 }
-.lock-screen h2{color:#ff4d6d}
+.lock-screen h2{color:#ff4d6d;}
 .lock-screen input{
-  padding:10px;width:200px;
-  border-radius:10px;border:1px solid #ccc;
-  text-align:center;font-size:16px;
+  padding:10px;
+  width:200px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  text-align:center;
 }
 .lock-screen button{
-  margin-top:12px;padding:8px 18px;
-  border:none;background:#ff4d6d;color:white;
-  border-radius:20px;cursor:pointer;
+  margin-top:12px;
+  padding:8px 18px;
+  border:none;
+  background:#ff4d6d;
+  color:white;
+  border-radius:20px;
+  cursor:pointer;
 }
 
 /* NEW YEAR SCREEN */
-#newYearScreen{
+#newYear{
+  display:none;
   position:absolute;
   inset:0;
   background:black;
   color:white;
-  display:none;
+  z-index:9;
+  text-align:center;
+}
+#nyText{
+  position:absolute;
+  inset:0;
+  display:flex;
   align-items:center;
   justify-content:center;
-  text-align:center;
-  z-index:9;
-}
-#newYearText{
+  padding:30px;
   font-size:20px;
   line-height:1.7;
-  animation:fadeNY 2s ease;
+  animation:fadeIn 2s ease;
 }
-@keyframes fadeNY{
+@keyframes fadeIn{
   from{opacity:0;transform:scale(.9)}
   to{opacity:1}
 }
@@ -65,8 +75,9 @@ body{
 /* FIREWORKS */
 .firework{
   position:absolute;
-  width:6px;height:6px;
-  background:white;
+  width:6px;
+  height:6px;
+  background:transparent;
   border-radius:50%;
   animation:explode 1.5s ease-out forwards;
 }
@@ -74,6 +85,10 @@ body{
   to{
     transform:translate(var(--x),var(--y));
     opacity:0;
+    box-shadow:
+      0 0 6px #ff4d6d,
+      0 0 12px #ffcc00,
+      0 0 18px #4d9cff;
   }
 }
 
@@ -81,22 +96,23 @@ body{
 .cake{
   position:absolute;
   bottom:-40px;
-  font-size:32px;
+  font-size:30px;
   animation:cakeUp linear infinite;
 }
 @keyframes cakeUp{
-  to{transform:translateY(-120vh) rotate(360deg)}
+  to{transform:translateY(-120vh) rotate(360deg);}
 }
 
 /* ENVELOPE */
 .envelope{
-  width:280px;height:180px;
+  width:280px;
+  height:180px;
   background:#ff4d6d;
-  position:relative;
   border-radius:10px;
   cursor:pointer;
   display:none;
-  z-index:4;
+  position:relative;
+  z-index:5;
 }
 .flap{
   position:absolute;
@@ -108,12 +124,14 @@ body{
   transform-origin:top;
   transition:1s;
 }
-.envelope.open .flap{transform:rotateX(180deg)}
+.envelope.open .flap{transform:rotateX(180deg);}
 .open-text{
   position:absolute;
-  bottom:12px;width:100%;
+  bottom:12px;
+  width:100%;
   text-align:center;
-  color:white;font-weight:600;
+  color:white;
+  font-weight:600;
 }
 
 /* COUNTDOWN */
@@ -136,57 +154,40 @@ body{
   box-shadow:0 14px 40px rgba(0,0,0,.25);
   display:none;
   animation:openLetter 1.2s ease;
-  z-index:3;
 }
 @keyframes openLetter{
   from{transform:scaleY(0);opacity:0}
   to{transform:scaleY(1);opacity:1}
 }
-.from-name{font-size:14px;color:#777}
-.heart-main{font-size:42px;animation:beat 1s infinite}
+
+.from-name{font-size:14px;color:#777;}
+.heart-main{font-size:42px;animation:beat 1s infinite;}
 @keyframes beat{
   0%,100%{transform:scale(1)}
   50%{transform:scale(1.25)}
 }
 .to-name{
   font-family:'Great Vibes',cursive;
-  font-size:42px;color:#ff4d6d;
-  min-height:50px;
+  font-size:42px;
+  color:#ff4d6d;
 }
-p{color:#444;font-size:15px;line-height:1.65;text-align:left}
+p{text-align:left;font-size:15px;line-height:1.6;color:#444}
 
 /* TEDDIES */
 .teddies{
   display:flex;
   justify-content:center;
-  gap:22px;
+  gap:20px;
   font-size:46px;
-  margin:8px 0 12px;
-  animation:teddyMove 2s infinite ease-in-out;
-}
-@keyframes teddyMove{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-6px)}
+  margin:10px 0;
 }
 .teddy.red{color:#ff4d6d}
 .teddy.blue{color:#4d9cff}
 
-/* SECRET */
-.reveal-btn{
-  margin-top:14px;padding:8px 18px;
-  border:none;background:#ff4d6d;color:white;
-  border-radius:20px;cursor:pointer;
-}
-.secret{
-  display:none;margin-top:14px;
-  font-weight:600;color:#ff4d6d;
-  text-align:center;
-}
-.shayari{margin-top:10px;font-style:italic;color:#666}
-
 /* HEARTS */
 .falling-heart{
-  position:absolute;top:-40px;
+  position:absolute;
+  top:-40px;
   animation:fall linear infinite;
 }
 @keyframes fall{
@@ -201,17 +202,17 @@ p{color:#444;font-size:15px;line-height:1.65;text-align:left}
   <h2>🔒 Enter the date</h2>
   <input id="password" placeholder="DD/MM/YYYY">
   <br>
-  <button onclick="checkPassword()">Unlock 💗</button>
+  <button onclick="unlock()">Unlock 💗</button>
 </div>
 
-<div id="newYearScreen" onclick="goToEnvelope()">
-  <div id="newYearText">
-    🎆 Happy New Year 2026 🎆<br><br>
+<div id="newYear" onclick="goEnvelope()">
+  <div id="nyText">
+    🎉 Happy New Year 2026 🎉<br><br>
     Hifza 💖<br>
-    May this year bring you peace, growth, smiles and success ✨<br>
-    May every dream move closer and every day feel lighter 💫<br>
-    May love surround you and happiness follow you always 🎂<br><br>
-    <small>Tap anywhere to continue 💌</small>
+    May this year bring you happiness, peace and success ✨<br>
+    May your smile stay bright and dreams come true 🎆<br>
+    And may life stay sweet like New Year cake 🎂<br><br>
+    Tap to continue 💌
   </div>
 </div>
 
@@ -222,11 +223,7 @@ p{color:#444;font-size:15px;line-height:1.65;text-align:left}
 
 <div class="countdown" id="countdown"></div>
 
-<audio id="bgMusic" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_2c2c7a1e63.mp3">
-</audio>
-
-<div class="card" id="card" onclick="playMusic()">
+<div class="card" id="card">
   <div class="from-name">From Hibbaan</div>
   <div class="heart-main">💗</div>
 
@@ -235,93 +232,64 @@ p{color:#444;font-size:15px;line-height:1.65;text-align:left}
     <span class="teddy blue">🧸</span>
   </div>
 
-  <div class="to-name" id="typingName"></div>
+  <div class="to-name">Hifza</div>
 
-  <!-- YOUR ORIGINAL LOVE TEXT (UNCHANGED) -->
   <p>
     This isn’t just a message — it’s a quiet truth I’ve carried in my heart for a long time.
     Some feelings don’t need noise or drama; they grow silently, becoming deeper with time.
     That’s how my feelings for you feel — calm, honest, and real.
-    <br><br>
-    Your voice has a softness that brings peace. It’s the kind of voice that makes moments
-    feel lighter and conversations feel meaningful. And your kindness — it shows in the
-    smallest things you do, in the way you care, and in the way you understand others.
-    <br><br>
-    Your eyes… they shine like diamonds — rare, pure, and beautiful in a way words can’t
-    fully explain. There’s depth in them, a quiet magic that stays with me long after.
-    <br><br>
-    I don’t know what the future holds, and I don’t want to rush anything.
-    I just want you to know that my feelings are genuine, respectful, and true —
-    something I value deeply and hold with care.
   </p>
-
-  <button class="reveal-btn" onclick="revealMsg(event)">Tap for a secret 💌</button>
-
-  <div class="secret" id="secretMsg">
-    I love you 💓 as deep as Osian — endless, calm, and timeless.
-    <div class="shayari">
-      “Some love grows silently,<br>
-      some hearts connect deeply,<br>
-      and some feelings stay forever.”
-    </div>
-  </div>
 </div>
 
 <script>
-function checkPassword(){
+function unlock(){
   if(password.value==="11/4/2011"){
     lockScreen.style.display="none";
-    newYearScreen.style.display="flex";
-    setInterval(firework,400);
-    setInterval(createCake,1200);
+    newYear.style.display="block";
   }else alert("Wrong password 💔");
 }
 
-function goToEnvelope(){
-  newYearScreen.style.display="none";
+function goEnvelope(){
+  newYear.style.display="none";
   envelope.style.display="block";
 }
 
 function openEnvelope(){
   envelope.classList.add("open");
-  setTimeout(startCountdown,1000);
+  setTimeout(()=>{
+    envelope.style.display="none";
+    card.style.display="block";
+  },1200);
 }
 
-function startCountdown(){
-  envelope.style.display="none";
-  let count=3;
-  countdown.style.display="block";
-  countdown.innerText=count;
-  const timer=setInterval(()=>{
-    count--;
-    if(count===0){
-      clearInterval(timer);
-      countdown.style.display="none";
-      card.style.display="block";
-      typeName();
-    }else countdown.innerText=count;
-  },1000);
-}
-
-function playMusic(){bgMusic.play()}
-
-function revealMsg(e){
-  e.stopPropagation();
-  secretMsg.style.display="block";
-}
-
-const nameText="Hifza";
-let i=0;
-function typeName(){
-  if(i<nameText.length){
-    typingName.innerHTML+=nameText.charAt(i);
-    i++;
-    setTimeout(typeName,180);
+/* FIREWORK */
+function firework(){
+  for(let i=0;i<30;i++){
+    const f=document.createElement("div");
+    f.className="firework";
+    f.style.left="50%";
+    f.style.top="50%";
+    f.style.setProperty("--x",(Math.random()*200-100)+"px");
+    f.style.setProperty("--y",(Math.random()*200-100)+"px");
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),1500);
   }
 }
+setInterval(firework,1200);
 
-/* HEARTS */
-function createHeart(){
+/* CAKE */
+setInterval(()=>{
+  const c=document.createElement("div");
+  c.className="cake";
+  c.innerHTML="🎂";
+  c.style.left=Math.random()*100+"vw";
+  c.style.animationDuration=(5+Math.random()*4)+"s";
+  document.body.appendChild(c);
+  setTimeout(()=>c.remove(),9000);
+},1200);
+
+/* HEART */
+setInterval(()=>{
   const h=document.createElement("div");
   h.className="falling-heart";
   h.innerHTML="💗";
@@ -330,34 +298,7 @@ function createHeart(){
   h.style.animationDuration=(3+Math.random()*4)+"s";
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),7000);
-}
-setInterval(createHeart,350);
-
-/* FIREWORKS */
-function firework(){
-  for(let i=0;i<20;i++){
-    const f=document.createElement("div");
-    f.className="firework";
-    f.style.left=Math.random()*100+"vw";
-    f.style.top=Math.random()*60+"vh";
-    f.style.setProperty("--x",(Math.random()*200-100)+"px");
-    f.style.setProperty("--y",(Math.random()*200-100)+"px");
-    f.style.background=`hsl(${Math.random()*360},100%,70%)`;
-    document.body.appendChild(f);
-    setTimeout(()=>f.remove(),1500);
-  }
-}
-
-/* CAKE */
-function createCake(){
-  const c=document.createElement("div");
-  c.className="cake";
-  c.innerHTML="🎂";
-  c.style.left=Math.random()*100+"vw";
-  c.style.animationDuration=(5+Math.random()*4)+"s";
-  document.body.appendChild(c);
-  setTimeout(()=>c.remove(),9000);
-}
+},350);
 </script>
 
 </body>
