@@ -18,7 +18,7 @@ body{
   font-family:'Poppins',sans-serif;
 }
 
-/* LOCK */
+/* LOCK SCREEN */
 .lock-screen{
   position:absolute;
   background:white;
@@ -28,10 +28,11 @@ body{
   box-shadow:0 12px 35px rgba(0,0,0,.25);
   z-index:10;
 }
-.lock-screen h2{color:#ff4d6d;}
+.lock-screen h2{color:#ff4d6d}
 .lock-screen input{
-  padding:10px;width:200px;border-radius:10px;
-  border:1px solid #ccc;text-align:center;
+  padding:10px;width:200px;
+  border-radius:10px;border:1px solid #ccc;
+  text-align:center;font-size:16px;
 }
 .lock-screen button{
   margin-top:12px;padding:8px 18px;
@@ -41,17 +42,15 @@ body{
 
 /* NEW YEAR SCREEN */
 #newYearScreen{
-  display:none;
   position:absolute;
   inset:0;
   background:black;
   color:white;
-  z-index:9;
-  display:flex;
+  display:none;
   align-items:center;
   justify-content:center;
   text-align:center;
-  padding:30px;
+  z-index:9;
 }
 #newYearText{
   font-size:20px;
@@ -67,12 +66,15 @@ body{
 .firework{
   position:absolute;
   width:6px;height:6px;
+  background:white;
   border-radius:50%;
-  animation:explode 1.5s ease-out infinite;
+  animation:explode 1.5s ease-out forwards;
 }
 @keyframes explode{
-  0%{transform:scale(0);opacity:1}
-  100%{transform:scale(8);opacity:0}
+  to{
+    transform:translate(var(--x),var(--y));
+    opacity:0;
+  }
 }
 
 /* CAKE */
@@ -96,19 +98,21 @@ body{
   display:none;
   z-index:4;
 }
-.envelope .flap{
-  position:absolute;top:0;left:0;
+.flap{
+  position:absolute;
+  top:0;left:0;
   width:0;height:0;
   border-left:140px solid transparent;
   border-right:140px solid transparent;
   border-bottom:90px solid #ff7a8a;
   transform-origin:top;
-  transition:1s ease;
+  transition:1s;
 }
-.envelope.open .flap{transform:rotateX(180deg);}
+.envelope.open .flap{transform:rotateX(180deg)}
 .open-text{
-  position:absolute;bottom:12px;
-  width:100%;text-align:center;
+  position:absolute;
+  bottom:12px;width:100%;
+  text-align:center;
   color:white;font-weight:600;
 }
 
@@ -132,27 +136,24 @@ body{
   box-shadow:0 14px 40px rgba(0,0,0,.25);
   display:none;
   animation:openLetter 1.2s ease;
+  z-index:3;
 }
 @keyframes openLetter{
   from{transform:scaleY(0);opacity:0}
   to{transform:scaleY(1);opacity:1}
 }
-.from-name{font-size:14px;color:#777;}
-.heart-main{font-size:42px;animation:beat 1s infinite;}
+.from-name{font-size:14px;color:#777}
+.heart-main{font-size:42px;animation:beat 1s infinite}
 @keyframes beat{
   0%,100%{transform:scale(1)}
   50%{transform:scale(1.25)}
 }
 .to-name{
   font-family:'Great Vibes',cursive;
-  font-size:42px;
-  color:#ff4d6d;
+  font-size:42px;color:#ff4d6d;
   min-height:50px;
 }
-p{
-  color:#444;font-size:15px;
-  line-height:1.65;text-align:left;
-}
+p{color:#444;font-size:15px;line-height:1.65;text-align:left}
 
 /* TEDDIES */
 .teddies{
@@ -170,10 +171,22 @@ p{
 .teddy.red{color:#ff4d6d}
 .teddy.blue{color:#4d9cff}
 
+/* SECRET */
+.reveal-btn{
+  margin-top:14px;padding:8px 18px;
+  border:none;background:#ff4d6d;color:white;
+  border-radius:20px;cursor:pointer;
+}
+.secret{
+  display:none;margin-top:14px;
+  font-weight:600;color:#ff4d6d;
+  text-align:center;
+}
+.shayari{margin-top:10px;font-style:italic;color:#666}
+
 /* HEARTS */
 .falling-heart{
-  position:absolute;
-  top:-40px;
+  position:absolute;top:-40px;
   animation:fall linear infinite;
 }
 @keyframes fall{
@@ -193,12 +206,11 @@ p{
 
 <div id="newYearScreen" onclick="goToEnvelope()">
   <div id="newYearText">
-    🎉 Happy New Year 2026 🎉<br><br>
+    🎆 Happy New Year 2026 🎆<br><br>
     Hifza 💖<br>
-    May this year bring you happiness, peace and success ✨<br>
-    May your smile never fade and your heart stay light 💫<br>
-    May new memories find you and dreams come true 🎆<br>
-    And may life always feel sweet like this New Year cake 🎂<br><br>
+    May this year bring you peace, growth, smiles and success ✨<br>
+    May every dream move closer and every day feel lighter 💫<br>
+    May love surround you and happiness follow you always 🎂<br><br>
     <small>Tap anywhere to continue 💌</small>
   </div>
 </div>
@@ -210,7 +222,11 @@ p{
 
 <div class="countdown" id="countdown"></div>
 
-<div class="card" id="card">
+<audio id="bgMusic" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_2c2c7a1e63.mp3">
+</audio>
+
+<div class="card" id="card" onclick="playMusic()">
   <div class="from-name">From Hibbaan</div>
   <div class="heart-main">💗</div>
 
@@ -221,7 +237,7 @@ p{
 
   <div class="to-name" id="typingName"></div>
 
-  <!-- YOUR ORIGINAL LOVE TEXT IS UNTOUCHED -->
+  <!-- YOUR ORIGINAL LOVE TEXT (UNCHANGED) -->
   <p>
     This isn’t just a message — it’s a quiet truth I’ve carried in my heart for a long time.
     Some feelings don’t need noise or drama; they grow silently, becoming deeper with time.
@@ -238,6 +254,17 @@ p{
     I just want you to know that my feelings are genuine, respectful, and true —
     something I value deeply and hold with care.
   </p>
+
+  <button class="reveal-btn" onclick="revealMsg(event)">Tap for a secret 💌</button>
+
+  <div class="secret" id="secretMsg">
+    I love you 💓 as deep as Osian — endless, calm, and timeless.
+    <div class="shayari">
+      “Some love grows silently,<br>
+      some hearts connect deeply,<br>
+      and some feelings stay forever.”
+    </div>
+  </div>
 </div>
 
 <script>
@@ -245,6 +272,8 @@ function checkPassword(){
   if(password.value==="11/4/2011"){
     lockScreen.style.display="none";
     newYearScreen.style.display="flex";
+    setInterval(firework,400);
+    setInterval(createCake,1200);
   }else alert("Wrong password 💔");
 }
 
@@ -260,31 +289,39 @@ function openEnvelope(){
 
 function startCountdown(){
   envelope.style.display="none";
-  let c=3;
+  let count=3;
   countdown.style.display="block";
-  countdown.innerText=c;
-  const t=setInterval(()=>{
-    c--;
-    if(c===0){
-      clearInterval(t);
+  countdown.innerText=count;
+  const timer=setInterval(()=>{
+    count--;
+    if(count===0){
+      clearInterval(timer);
       countdown.style.display="none";
       card.style.display="block";
       typeName();
-    }else countdown.innerText=c;
+    }else countdown.innerText=count;
   },1000);
+}
+
+function playMusic(){bgMusic.play()}
+
+function revealMsg(e){
+  e.stopPropagation();
+  secretMsg.style.display="block";
 }
 
 const nameText="Hifza";
 let i=0;
 function typeName(){
   if(i<nameText.length){
-    typingName.innerHTML+=nameText.charAt(i++);
+    typingName.innerHTML+=nameText.charAt(i);
+    i++;
     setTimeout(typeName,180);
   }
 }
 
 /* HEARTS */
-setInterval(()=>{
+function createHeart(){
   const h=document.createElement("div");
   h.className="falling-heart";
   h.innerHTML="💗";
@@ -293,10 +330,26 @@ setInterval(()=>{
   h.style.animationDuration=(3+Math.random()*4)+"s";
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),7000);
-},350);
+}
+setInterval(createHeart,350);
 
-/* CAKES */
-setInterval(()=>{
+/* FIREWORKS */
+function firework(){
+  for(let i=0;i<20;i++){
+    const f=document.createElement("div");
+    f.className="firework";
+    f.style.left=Math.random()*100+"vw";
+    f.style.top=Math.random()*60+"vh";
+    f.style.setProperty("--x",(Math.random()*200-100)+"px");
+    f.style.setProperty("--y",(Math.random()*200-100)+"px");
+    f.style.background=`hsl(${Math.random()*360},100%,70%)`;
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),1500);
+  }
+}
+
+/* CAKE */
+function createCake(){
   const c=document.createElement("div");
   c.className="cake";
   c.innerHTML="🎂";
@@ -304,18 +357,7 @@ setInterval(()=>{
   c.style.animationDuration=(5+Math.random()*4)+"s";
   document.body.appendChild(c);
   setTimeout(()=>c.remove(),9000);
-},1200);
-
-/* FIREWORKS */
-setInterval(()=>{
-  const f=document.createElement("div");
-  f.className="firework";
-  f.style.left=Math.random()*100+"vw";
-  f.style.top=Math.random()*60+"vh";
-  f.style.background=`hsl(${Math.random()*360},100%,60%)`;
-  document.body.appendChild(f);
-  setTimeout(()=>f.remove(),1500);
-},300);
+}
 </script>
 
 </body>
