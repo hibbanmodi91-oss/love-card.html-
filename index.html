@@ -15,10 +15,25 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  font-family:Poppins,sans-serif;
+  font-family:'Poppins',sans-serif;
 }
 
-/* LOCK SCREEN */
+/* ---------- SPARKLE TRAIL ---------- */
+.cursor-sparkle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  animation: fadeOut 1s forwards;
+}
+@keyframes fadeOut {
+  to { opacity: 0; transform: scale(2); }
+}
+
+/* ---------- LOCK SCREEN ---------- */
 .lock-screen{
   position:absolute;
   background:white;
@@ -26,7 +41,7 @@ body{
   border-radius:20px;
   text-align:center;
   box-shadow:0 12px 35px rgba(0,0,0,.25);
-  z-index:10;
+  z-index:100;
 }
 .lock-screen h2{color:#ff4d6d;}
 .lock-screen input{
@@ -46,14 +61,14 @@ body{
   cursor:pointer;
 }
 
-/* NEW YEAR SCREEN */
-#newYear{
-  display:none;
+/* ---------- NEW YEAR SCREEN ---------- */
+#newYearScreen{
   position:absolute;
   inset:0;
   background:black;
   color:white;
-  z-index:9;
+  display:none;
+  z-index:90;
   text-align:center;
 }
 #nyText{
@@ -67,32 +82,29 @@ body{
   line-height:1.7;
   animation:fadeIn 2s ease;
 }
+
 @keyframes fadeIn{
   from{opacity:0;transform:scale(.9)}
   to{opacity:1}
 }
 
-/* FIREWORKS */
+/* Fireworks */
 .firework{
   position:absolute;
   width:6px;
   height:6px;
-  background:transparent;
+  background:white;
   border-radius:50%;
-  animation:explode 1.5s ease-out forwards;
+  animation:explode 1s ease-out forwards;
 }
 @keyframes explode{
   to{
     transform:translate(var(--x),var(--y));
     opacity:0;
-    box-shadow:
-      0 0 6px #ff4d6d,
-      0 0 12px #ffcc00,
-      0 0 18px #4d9cff;
   }
 }
 
-/* CAKE */
+/* Cake */
 .cake{
   position:absolute;
   bottom:-40px;
@@ -103,16 +115,16 @@ body{
   to{transform:translateY(-120vh) rotate(360deg);}
 }
 
-/* ENVELOPE */
+/* ---------- ENVELOPE ---------- */
 .envelope{
   width:280px;
   height:180px;
   background:#ff4d6d;
   border-radius:10px;
-  cursor:pointer;
   display:none;
   position:relative;
-  z-index:5;
+  cursor:pointer;
+  z-index:50;
 }
 .flap{
   position:absolute;
@@ -134,25 +146,21 @@ body{
   font-weight:600;
 }
 
-/* COUNTDOWN */
-.countdown{
-  position:absolute;
-  font-size:48px;
-  color:white;
-  font-weight:bold;
-  display:none;
-  z-index:6;
-}
-
-/* CARD */
+/* ---------- CARD (GLASSMORPHISM) ---------- */
 .card{
-  background:white;
-  width:360px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  width: 360px;
+  max-height: 80vh;
+  overflow-y: auto;
   padding:26px;
   border-radius:22px;
   text-align:center;
-  box-shadow:0 14px 40px rgba(0,0,0,.25);
+  box-shadow:0 14px 40px rgba(0,0,0,.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   display:none;
+  z-index:40;
   animation:openLetter 1.2s ease;
 }
 @keyframes openLetter{
@@ -160,35 +168,70 @@ body{
   to{transform:scaleY(1);opacity:1}
 }
 
-.from-name{font-size:14px;color:#777;}
+.from-name{font-size:14px;color:#555;}
 .heart-main{font-size:42px;animation:beat 1s infinite;}
 @keyframes beat{
   0%,100%{transform:scale(1)}
   50%{transform:scale(1.25)}
 }
+
 .to-name{
   font-family:'Great Vibes',cursive;
   font-size:42px;
   color:#ff4d6d;
 }
-p{text-align:left;font-size:15px;line-height:1.6;color:#444}
 
-/* TEDDIES */
+p{text-align:left;font-size:15px;line-height:1.6;color:#333}
+
+/* Teddies */
 .teddies{
   display:flex;
   justify-content:center;
   gap:20px;
   font-size:46px;
   margin:10px 0;
+  animation:teddyMove 2s infinite ease-in-out;
+}
+@keyframes teddyMove{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-6px)}
 }
 .teddy.red{color:#ff4d6d}
 .teddy.blue{color:#4d9cff}
 
-/* HEARTS */
+/* Secret & Proposal */
+.reveal-btn{
+  margin: 10px 5px;
+  padding:8px 18px;
+  border:none;
+  background:#ff4d6d;
+  color:white;
+  border-radius:20px;
+  cursor:pointer;
+  transition: 0.3s;
+}
+.secret{
+  display:none;
+  margin-top:14px;
+  font-weight:600;
+  color:#ff4d6d;
+  text-align:center;
+}
+.shayari{font-style:italic;color:#666;margin-top:10px}
+
+#proposalSection {
+  display: none;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px dashed #ffb6c1;
+}
+
+/* Hearts */
 .falling-heart{
   position:absolute;
   top:-40px;
   animation:fall linear infinite;
+  z-index:1;
 }
 @keyframes fall{
   to{transform:translateY(110vh) rotate(360deg)}
@@ -205,14 +248,14 @@ p{text-align:left;font-size:15px;line-height:1.6;color:#444}
   <button onclick="unlock()">Unlock 💗</button>
 </div>
 
-<div id="newYear" onclick="goEnvelope()">
+<div id="newYearScreen" onclick="showEnvelope()">
   <div id="nyText">
     🎉 Happy New Year 2026 🎉<br><br>
     Hifza 💖<br>
-    May this year bring you happiness, peace and success ✨<br>
+    May this year bring you happiness, peace & success ✨<br>
     May your smile stay bright and dreams come true 🎆<br>
     And may life stay sweet like New Year cake 🎂<br><br>
-    Tap to continue 💌
+    Tap anywhere to continue 💌
   </div>
 </div>
 
@@ -221,7 +264,9 @@ p{text-align:left;font-size:15px;line-height:1.6;color:#444}
   <div class="open-text">Tap to open 💌</div>
 </div>
 
-<div class="countdown" id="countdown"></div>
+<audio id="bgMusic" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_2c2c7a1e63.mp3">
+</audio>
 
 <div class="card" id="card">
   <div class="from-name">From Hibbaan</div>
@@ -238,58 +283,85 @@ p{text-align:left;font-size:15px;line-height:1.6;color:#444}
     This isn’t just a message — it’s a quiet truth I’ve carried in my heart for a long time.
     Some feelings don’t need noise or drama; they grow silently, becoming deeper with time.
     That’s how my feelings for you feel — calm, honest, and real.
+    <br><br>
+    Your voice has a softness that brings peace...
   </p>
+
+  <button class="reveal-btn" id="mainRevealBtn" onclick="revealMsg(event)">Tap for a secret 💌</button>
+
+  <div class="secret" id="secretMsg">
+    I love you 💓 as deep as Ocean — endless, calm, and timeless.
+    <div class="shayari">
+      “Some love grows silently,<br>
+      some hearts connect deeply,<br>
+      and some feelings stay forever.”
+    </div>
+
+    <div id="proposalSection">
+      <p style="text-align:center; font-weight:bold;">Will you be mine? ✨</p>
+      <button class="reveal-btn" onclick="sayYes()">Yes! 💖</button>
+      <button class="reveal-btn" id="noBtn" style="background:#999;">No</button>
+    </div>
+  </div>
 </div>
 
 <script>
+// Password & Flow
 function unlock(){
-  if(password.value==="11/4/2011"){
-    lockScreen.style.display="none";
-    newYear.style.display="block";
+  if(document.getElementById("password").value==="11/4/2011"){
+    document.getElementById("lockScreen").style.display="none";
+    document.getElementById("newYearScreen").style.display="block";
+    document.getElementById("bgMusic").play().catch(e => console.log("Audio waiting..."));
   }else alert("Wrong password 💔");
 }
 
-function goEnvelope(){
-  newYear.style.display="none";
-  envelope.style.display="block";
+function showEnvelope(){
+  document.getElementById("newYearScreen").style.display="none";
+  document.getElementById("envelope").style.display="block";
 }
 
 function openEnvelope(){
-  envelope.classList.add("open");
+  document.getElementById("envelope").classList.add("open");
   setTimeout(()=>{
-    envelope.style.display="none";
-    card.style.display="block";
-  },1200);
+    document.getElementById("envelope").style.display="none";
+    document.getElementById("card").style.display="block";
+  },1000);
 }
 
-/* FIREWORK */
-function firework(){
-  for(let i=0;i<30;i++){
-    const f=document.createElement("div");
-    f.className="firework";
-    f.style.left="50%";
-    f.style.top="50%";
-    f.style.setProperty("--x",(Math.random()*200-100)+"px");
-    f.style.setProperty("--y",(Math.random()*200-100)+"px");
-    document.body.appendChild(f);
-    setTimeout(()=>f.remove(),1500);
-  }
+function revealMsg(e){
+  e.stopPropagation();
+  document.getElementById("secretMsg").style.display="block";
+  document.getElementById("proposalSection").style.display="block";
+  document.getElementById("mainRevealBtn").style.display="none";
 }
-setInterval(firework,1200);
 
-/* CAKE */
-setInterval(()=>{
-  const c=document.createElement("div");
-  c.className="cake";
-  c.innerHTML="🎂";
-  c.style.left=Math.random()*100+"vw";
-  c.style.animationDuration=(5+Math.random()*4)+"s";
-  document.body.appendChild(c);
-  setTimeout(()=>c.remove(),9000);
-},1200);
+function sayYes() {
+    alert("You just made me the happiest person! 💖");
+    for(let i=0; i<50; i++) setTimeout(heart, i*100);
+}
 
-/* HEART */
-setInterval(()=>{
+// Runaway No Button
+const noBtn = document.getElementById('noBtn');
+noBtn.addEventListener('mouseover', () => {
+    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+    noBtn.style.position = 'fixed';
+    noBtn.style.left = x + 'px';
+    noBtn.style.top = y + 'px';
+});
+
+// Sparkle Trail
+document.addEventListener('mousemove', function(e) {
+  const sparkle = document.createElement('div');
+  sparkle.className = 'cursor-sparkle';
+  sparkle.style.left = e.pageX + 'px';
+  sparkle.style.top = e.pageY + 'px';
+  document.body.appendChild(sparkle);
+  setTimeout(() => sparkle.remove(), 1000);
+});
+
+// Animations
+function heart(){
   const h=document.createElement("div");
   h.className="falling-heart";
   h.innerHTML="💗";
@@ -298,7 +370,35 @@ setInterval(()=>{
   h.style.animationDuration=(3+Math.random()*4)+"s";
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),7000);
-},350);
+}
+setInterval(heart,350);
+
+function cake(){
+  const c=document.createElement("div");
+  c.className="cake";
+  c.innerHTML="🎂";
+  c.style.left=Math.random()*100+"vw";
+  c.style.animationDuration=(5+Math.random()*4)+"s";
+  document.body.appendChild(c);
+  setTimeout(()=>c.remove(),9000);
+}
+setInterval(cake,1200);
+
+/* Fireworks Logic */
+setInterval(()=>{
+  if(document.getElementById("newYearScreen").style.display === "block") {
+    for(let i=0;i<15;i++){
+      const f=document.createElement("div");
+      f.className="firework";
+      f.style.left=Math.random()*100+"vw";
+      f.style.top=Math.random()*100+"vh";
+      f.style.setProperty("--x",(Math.random()*200-100)+"px");
+      f.style.setProperty("--y",(Math.random()*200-100)+"px");
+      document.getElementById("newYearScreen").appendChild(f);
+      setTimeout(()=>f.remove(),1000);
+    }
+  }
+},1200);
 </script>
 
 </body>
