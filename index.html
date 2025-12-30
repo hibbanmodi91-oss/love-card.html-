@@ -16,21 +16,7 @@ body{
   align-items:center;
   justify-content:center;
   font-family:'Poppins',sans-serif;
-}
-
-/* ---------- SPARKLE TRAIL ---------- */
-.cursor-sparkle {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background: white;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  animation: fadeOut 1s forwards;
-}
-@keyframes fadeOut {
-  to { opacity: 0; transform: scale(2); }
+  cursor: none; /* custom cursor effect */
 }
 
 /* ---------- LOCK SCREEN ---------- */
@@ -41,7 +27,7 @@ body{
   border-radius:20px;
   text-align:center;
   box-shadow:0 12px 35px rgba(0,0,0,.25);
-  z-index:100;
+  z-index:10;
 }
 .lock-screen h2{color:#ff4d6d;}
 .lock-screen input{
@@ -68,7 +54,7 @@ body{
   background:black;
   color:white;
   display:none;
-  z-index:90;
+  z-index:9;
   text-align:center;
 }
 #nyText{
@@ -82,10 +68,25 @@ body{
   line-height:1.7;
   animation:fadeIn 2s ease;
 }
-
 @keyframes fadeIn{
   from{opacity:0;transform:scale(.9)}
   to{opacity:1}
+}
+
+/* Fireworks */
+.firework{
+  position:absolute;
+  width:6px;
+  height:6px;
+  background:white;
+  border-radius:50%;
+  animation:explode 1s ease-out forwards;
+}
+@keyframes explode{
+  to{
+    transform:translate(var(--x),var(--y));
+    opacity:0;
+  }
 }
 
 /* Cake */
@@ -108,7 +109,7 @@ body{
   display:none;
   position:relative;
   cursor:pointer;
-  z-index:50;
+  z-index:5;
 }
 .flap{
   position:absolute;
@@ -130,21 +131,17 @@ body{
   font-weight:600;
 }
 
-/* ---------- CARD (GLASSMORPHISM) ---------- */
+/* ---------- CARD ---------- */
 .card{
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  width: 360px;
-  max-height: 85vh;
-  overflow-y: auto;
+  background: rgba(255,255,255,0.85); /* Glassmorphism */
+  backdrop-filter: blur(10px);
+  width:360px;
   padding:26px;
   border-radius:22px;
   text-align:center;
-  box-shadow:0 14px 40px rgba(0,0,0,.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow:0 14px 40px rgba(0,0,0,.25);
   display:none;
-  z-index:40;
+  z-index:4;
   animation:openLetter 1.2s ease;
 }
 @keyframes openLetter{
@@ -185,14 +182,13 @@ p{text-align:left;font-size:15px;line-height:1.6;color:#444}
 
 /* Secret */
 .reveal-btn{
-  margin: 10px 5px;
+  margin-top:14px;
   padding:8px 18px;
   border:none;
   background:#ff4d6d;
   color:white;
   border-radius:20px;
   cursor:pointer;
-  transition: 0.3s;
 }
 .secret{
   display:none;
@@ -203,22 +199,38 @@ p{text-align:left;font-size:15px;line-height:1.6;color:#444}
 }
 .shayari{font-style:italic;color:#666;margin-top:10px}
 
-#proposalSection {
-  display: none;
-  margin-top: 20px;
-  padding-top: 15px;
-  border-top: 1px dashed #ffb6c1;
-}
-
 /* Hearts */
 .falling-heart{
   position:absolute;
   top:-40px;
   animation:fall linear infinite;
-  z-index:1;
 }
 @keyframes fall{
   to{transform:translateY(110vh) rotate(360deg)}
+}
+
+/* Proposal Section */
+#proposalSection{
+  margin-top:20px;
+  display:none;
+}
+#proposalSection button{
+  cursor:pointer;
+}
+
+/* Cursor Sparkle */
+.cursor-sparkle{
+  position:absolute;
+  width:8px;
+  height:8px;
+  background:white;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:9999;
+  animation:fadeOut 1s forwards;
+}
+@keyframes fadeOut{
+  to{opacity:0; transform:scale(2);}
 }
 </style>
 </head>
@@ -252,7 +264,7 @@ p{text-align:left;font-size:15px;line-height:1.6;color:#444}
   <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_2c2c7a1e63.mp3">
 </audio>
 
-<div class="card" id="card">
+<div class="card" id="card" onclick="bgMusic.play()">
   <div class="from-name">From Hibbaan</div>
   <div class="heart-main">💗</div>
 
@@ -271,7 +283,7 @@ p{text-align:left;font-size:15px;line-height:1.6;color:#444}
     Your voice has a softness that brings peace...
   </p>
 
-  <button class="reveal-btn" id="mainRevealBtn" onclick="revealMsg(event)">Tap for a secret 💌</button>
+  <button class="reveal-btn" onclick="revealMsg(event)">Tap for a secret 💌</button>
 
   <div class="secret" id="secretMsg">
     I love you 💓 as deep as Osian — endless, calm, and timeless.
@@ -280,70 +292,45 @@ p{text-align:left;font-size:15px;line-height:1.6;color:#444}
       some hearts connect deeply,<br>
       and some feelings stay forever.”
     </div>
+  </div>
 
-    <div id="proposalSection">
-      <p style="text-align:center; font-weight:bold;">Will you be mine? ✨</p>
-      <button class="reveal-btn" onclick="sayYes()">Yes! 💖</button>
-      <button class="reveal-btn" id="noBtn" style="background:#999;">No</button>
-    </div>
+  <!-- Proposal Section -->
+  <div id="proposalSection">
+    <p style="text-align:center; font-weight:bold;">Will you be mine? ✨</p>
+    <button class="reveal-btn" id="yesBtn" onclick="confettiEffect()">Yes! 💖</button>
+    <button class="reveal-btn" id="noBtn" style="background:#888; position: relative;">No</button>
   </div>
 </div>
 
 <script>
 function unlock(){
-  if(document.getElementById("password").value==="11/4/2011"){
-    document.getElementById("lockScreen").style.display="none";
-    document.getElementById("newYearScreen").style.display="block";
-    document.getElementById("bgMusic").play().catch(e => console.log("Music play blocked"));
+  if(password.value==="11/4/2011"){
+    lockScreen.style.display="none";
+    newYearScreen.style.display="block";
+    document.getElementById('bgMusic').play().catch(e=>console.log("Audio blocked until interaction"));
   }else alert("Wrong password 💔");
 }
 
 function showEnvelope(){
-  document.getElementById("newYearScreen").style.display="none";
-  document.getElementById("envelope").style.display="block";
+  newYearScreen.style.display="none";
+  envelope.style.display="block";
 }
 
 function openEnvelope(){
-  document.getElementById("envelope").classList.add("open");
+  envelope.classList.add("open");
   setTimeout(()=>{
-    document.getElementById("envelope").style.display="none";
-    document.getElementById("card").style.display="block";
+    envelope.style.display="none";
+    card.style.display="block";
   },1000);
 }
 
 function revealMsg(e){
   e.stopPropagation();
-  document.getElementById("secretMsg").style.display="block";
-  document.getElementById("proposalSection").style.display="block";
-  document.getElementById("mainRevealBtn").style.display="none";
+  secretMsg.style.display="block";
+  document.getElementById('proposalSection').style.display = "block";
 }
 
-function sayYes() {
-    alert("You just made me the happiest person! 💖");
-    for(let i=0; i<30; i++) setTimeout(heart, i*150);
-}
-
-// Runaway No Button
-const noBtn = document.getElementById('noBtn');
-noBtn.addEventListener('mouseover', () => {
-    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-    noBtn.style.position = 'fixed';
-    noBtn.style.left = x + 'px';
-    noBtn.style.top = y + 'px';
-});
-
-// Sparkle Trail
-document.addEventListener('mousemove', function(e) {
-  const sparkle = document.createElement('div');
-  sparkle.className = 'cursor-sparkle';
-  sparkle.style.left = e.pageX + 'px';
-  sparkle.style.top = e.pageY + 'px';
-  document.body.appendChild(sparkle);
-  setTimeout(() => sparkle.remove(), 1000);
-});
-
-// Animations
+/* Falling Hearts */
 function heart(){
   const h=document.createElement("div");
   h.className="falling-heart";
@@ -356,6 +343,7 @@ function heart(){
 }
 setInterval(heart,350);
 
+/* Cake Falling */
 function cake(){
   const c=document.createElement("div");
   c.className="cake";
@@ -366,6 +354,57 @@ function cake(){
   setTimeout(()=>c.remove(),9000);
 }
 setInterval(cake,1200);
+
+/* Fireworks */
+setInterval(()=>{
+  for(let i=0;i<20;i++){
+    const f=document.createElement("div");
+    f.className="firework";
+    f.style.left=Math.random()*100+"vw";
+    f.style.top=Math.random()*100+"vh";
+    f.style.setProperty("--x",(Math.random()*200-100)+"px");
+    f.style.setProperty("--y",(Math.random()*200-100)+"px");
+    newYearScreen.appendChild(f);
+    setTimeout(()=>f.remove(),1000);
+  }
+},1200);
+
+/* Runaway "No" button */
+const noBtn = document.getElementById('noBtn');
+noBtn.addEventListener('mouseover', ()=>{
+  const x = Math.random()*(window.innerWidth-noBtn.offsetWidth);
+  const y = Math.random()*(window.innerHeight-noBtn.offsetHeight);
+  noBtn.style.position = 'fixed';
+  noBtn.style.left = x+'px';
+  noBtn.style.top = y+'px';
+});
+
+/* Confetti effect on Yes */
+function confettiEffect(){
+  for(let i=0;i<50;i++){
+    const conf = document.createElement("div");
+    conf.innerHTML="🎉";
+    conf.style.position="fixed";
+    conf.style.left=Math.random()*100+"vw";
+    conf.style.top="-20px";
+    conf.style.fontSize=(10+Math.random()*20)+"px";
+    conf.style.opacity=0.8;
+    document.body.appendChild(conf);
+    conf.animate([{transform:'translateY(0)'},{transform:'translateY(100vh) rotate(360deg)'}],
+                 {duration:2000+Math.random()*2000,easing:'ease-out'});
+    setTimeout(()=>conf.remove(),4000);
+  }
+}
+
+/* Sparkle Cursor */
+document.addEventListener('mousemove', function(e){
+  const sparkle = document.createElement('div');
+  sparkle.className='cursor-sparkle';
+  sparkle.style.left=e.pageX+'px';
+  sparkle.style.top=e.pageY+'px';
+  document.body.appendChild(sparkle);
+  setTimeout(()=>sparkle.remove(),1000);
+});
 </script>
 
 </body>
