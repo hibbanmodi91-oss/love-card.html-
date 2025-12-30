@@ -30,20 +30,13 @@ body{
 }
 .lock-screen h2{color:#ff4d6d;}
 .lock-screen input{
-  padding:10px;
-  width:200px;
-  border-radius:10px;
-  border:1px solid #ccc;
-  text-align:center;
+  padding:10px;width:200px;border-radius:10px;
+  border:1px solid #ccc;text-align:center;
 }
 .lock-screen button{
-  margin-top:12px;
-  padding:8px 18px;
-  border:none;
-  background:#ff4d6d;
-  color:white;
-  border-radius:20px;
-  cursor:pointer;
+  margin-top:12px;padding:8px 18px;
+  border:none;background:#ff4d6d;color:white;
+  border-radius:20px;cursor:pointer;
 }
 
 /* NEW YEAR SCREEN */
@@ -60,9 +53,26 @@ body{
   text-align:center;
   padding:30px;
 }
+#newYearText{
+  font-size:20px;
+  line-height:1.7;
+  animation:fadeNY 2s ease;
+}
 @keyframes fadeNY{
   from{opacity:0;transform:scale(.9)}
   to{opacity:1}
+}
+
+/* FIREWORKS */
+.firework{
+  position:absolute;
+  width:6px;height:6px;
+  border-radius:50%;
+  animation:explode 1.5s ease-out infinite;
+}
+@keyframes explode{
+  0%{transform:scale(0);opacity:1}
+  100%{transform:scale(8);opacity:0}
 }
 
 /* CAKE */
@@ -78,8 +88,7 @@ body{
 
 /* ENVELOPE */
 .envelope{
-  width:280px;
-  height:180px;
+  width:280px;height:180px;
   background:#ff4d6d;
   position:relative;
   border-radius:10px;
@@ -88,27 +97,19 @@ body{
   z-index:4;
 }
 .envelope .flap{
-  position:absolute;
-  top:0;
-  left:0;
-  width:0;
-  height:0;
+  position:absolute;top:0;left:0;
+  width:0;height:0;
   border-left:140px solid transparent;
   border-right:140px solid transparent;
   border-bottom:90px solid #ff7a8a;
   transform-origin:top;
-  transition:transform 1s ease;
+  transition:1s ease;
 }
-.envelope.open .flap{
-  transform:rotateX(180deg);
-}
+.envelope.open .flap{transform:rotateX(180deg);}
 .open-text{
-  position:absolute;
-  bottom:12px;
-  width:100%;
-  text-align:center;
-  color:white;
-  font-weight:600;
+  position:absolute;bottom:12px;
+  width:100%;text-align:center;
+  color:white;font-weight:600;
 }
 
 /* COUNTDOWN */
@@ -128,17 +129,14 @@ body{
   padding:26px;
   border-radius:22px;
   text-align:center;
-  box-shadow:0 0 25px rgba(255,77,109,.6),
-             0 14px 40px rgba(0,0,0,.25);
+  box-shadow:0 14px 40px rgba(0,0,0,.25);
   display:none;
   animation:openLetter 1.2s ease;
-  z-index:3;
 }
 @keyframes openLetter{
   from{transform:scaleY(0);opacity:0}
   to{transform:scaleY(1);opacity:1}
 }
-
 .from-name{font-size:14px;color:#777;}
 .heart-main{font-size:42px;animation:beat 1s infinite;}
 @keyframes beat{
@@ -152,57 +150,27 @@ body{
   min-height:50px;
 }
 p{
-  color:#444;
-  font-size:15px;
-  line-height:1.65;
-  text-align:left;
+  color:#444;font-size:15px;
+  line-height:1.65;text-align:left;
 }
 
 /* TEDDIES */
 .teddies{
   display:flex;
   justify-content:center;
-  align-items:center;
-  gap:8px;
+  gap:22px;
   font-size:46px;
-  margin:6px 0 10px;
+  margin:8px 0 12px;
   animation:teddyMove 2s infinite ease-in-out;
 }
 @keyframes teddyMove{
   0%,100%{transform:translateY(0)}
   50%{transform:translateY(-6px)}
 }
-.teddy.red{color:#ff4d6d;}
-.teddy.blue{color:#4d9cff;}
-.teddy-heart{
-  font-size:22px;
-  animation:beat 1.2s infinite;
-}
+.teddy.red{color:#ff4d6d}
+.teddy.blue{color:#4d9cff}
 
-/* BUTTON & SECRET */
-.reveal-btn{
-  margin-top:14px;
-  padding:8px 18px;
-  border:none;
-  background:#ff4d6d;
-  color:white;
-  border-radius:20px;
-  cursor:pointer;
-}
-.secret{
-  display:none;
-  margin-top:14px;
-  font-weight:600;
-  color:#ff4d6d;
-  text-align:center;
-}
-.shayari{
-  margin-top:10px;
-  font-style:italic;
-  color:#666;
-}
-
-/* FALLING HEARTS */
+/* HEARTS */
 .falling-heart{
   position:absolute;
   top:-40px;
@@ -223,17 +191,15 @@ p{
   <button onclick="checkPassword()">Unlock 💗</button>
 </div>
 
-<!-- NEW YEAR SCREEN -->
 <div id="newYearScreen" onclick="goToEnvelope()">
-  <div style="font-size:20px;line-height:1.7;animation:fadeNY 2s ease">
+  <div id="newYearText">
     🎉 Happy New Year 2026 🎉<br><br>
     Hifza 💖<br>
-    May this year bring you peace, growth, confidence and happiness ✨<br>
-    May your smile stay bright, your heart stay soft,<br>
-    and your dreams finally meet reality 💫<br>
-    May every day treat you kindly,<br>
-    and may your life stay sweet like this New Year cake 🎂<br><br>
-    <span style="font-size:14px;opacity:.8">Tap anywhere to continue 💌</span>
+    May this year bring you happiness, peace and success ✨<br>
+    May your smile never fade and your heart stay light 💫<br>
+    May new memories find you and dreams come true 🎆<br>
+    And may life always feel sweet like this New Year cake 🎂<br><br>
+    <small>Tap anywhere to continue 💌</small>
   </div>
 </div>
 
@@ -244,24 +210,18 @@ p{
 
 <div class="countdown" id="countdown"></div>
 
-<audio id="bgMusic" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_2c2c7a1e63.mp3">
-</audio>
-
-<div class="card" id="card" onclick="playMusic()">
+<div class="card" id="card">
   <div class="from-name">From Hibbaan</div>
   <div class="heart-main">💗</div>
 
-  <!-- TEDDIES ADDED -->
   <div class="teddies">
     <span class="teddy red">🧸</span>
-    <span class="teddy-heart">❤️</span>
     <span class="teddy blue">🧸</span>
   </div>
 
   <div class="to-name" id="typingName"></div>
 
-  <!-- YOUR ORIGINAL LOVE TEXT (UNTOUCHED) -->
+  <!-- YOUR ORIGINAL LOVE TEXT IS UNTOUCHED -->
   <p>
     This isn’t just a message — it’s a quiet truth I’ve carried in my heart for a long time.
     Some feelings don’t need noise or drama; they grow silently, becoming deeper with time.
@@ -278,17 +238,6 @@ p{
     I just want you to know that my feelings are genuine, respectful, and true —
     something I value deeply and hold with care.
   </p>
-
-  <button class="reveal-btn" onclick="revealMsg(event)">Tap for a secret 💌</button>
-
-  <div class="secret" id="secretMsg">
-    I love you 💓 as deep as Osian — endless, calm, and timeless.
-    <div class="shayari">
-      “Some love grows silently,<br>
-      some hearts connect deeply,<br>
-      and some feelings stay forever.”
-    </div>
-  </div>
 </div>
 
 <script>
@@ -311,38 +260,31 @@ function openEnvelope(){
 
 function startCountdown(){
   envelope.style.display="none";
-  let count=3;
+  let c=3;
   countdown.style.display="block";
-  countdown.innerText=count;
-  const timer=setInterval(()=>{
-    count--;
-    if(count===0){
-      clearInterval(timer);
+  countdown.innerText=c;
+  const t=setInterval(()=>{
+    c--;
+    if(c===0){
+      clearInterval(t);
       countdown.style.display="none";
       card.style.display="block";
       typeName();
-    }else countdown.innerText=count;
+    }else countdown.innerText=c;
   },1000);
-}
-
-function playMusic(){bgMusic.play();}
-
-function revealMsg(e){
-  e.stopPropagation();
-  secretMsg.style.display="block";
 }
 
 const nameText="Hifza";
 let i=0;
 function typeName(){
   if(i<nameText.length){
-    typingName.innerHTML+=nameText.charAt(i);
-    i++;
+    typingName.innerHTML+=nameText.charAt(i++);
     setTimeout(typeName,180);
   }
 }
 
-function heart(){
+/* HEARTS */
+setInterval(()=>{
   const h=document.createElement("div");
   h.className="falling-heart";
   h.innerHTML="💗";
@@ -351,10 +293,10 @@ function heart(){
   h.style.animationDuration=(3+Math.random()*4)+"s";
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),7000);
-}
-setInterval(heart,350);
+},350);
 
-function cake(){
+/* CAKES */
+setInterval(()=>{
   const c=document.createElement("div");
   c.className="cake";
   c.innerHTML="🎂";
@@ -362,8 +304,18 @@ function cake(){
   c.style.animationDuration=(5+Math.random()*4)+"s";
   document.body.appendChild(c);
   setTimeout(()=>c.remove(),9000);
-}
-setInterval(cake,1200);
+},1200);
+
+/* FIREWORKS */
+setInterval(()=>{
+  const f=document.createElement("div");
+  f.className="firework";
+  f.style.left=Math.random()*100+"vw";
+  f.style.top=Math.random()*60+"vh";
+  f.style.background=`hsl(${Math.random()*360},100%,60%)`;
+  document.body.appendChild(f);
+  setTimeout(()=>f.remove(),1500);
+},300);
 </script>
 
 </body>
